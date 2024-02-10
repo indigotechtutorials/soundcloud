@@ -1,0 +1,37 @@
+<div class="mx-auto md:w-2/3 w-full flex flex-col items-center pt-16">
+  <%= image_tag(@post.cover_art, class: "w-80 h-80 object-cover") if @post.cover_art.attached? %>
+  <div data-controller="audio-player" data-audio-player-url-value="<%= url_for(@post.audio) %>" class="max-w-2xl w-full mx-auto flex flex-col items-center">
+    <div data-audio-player-target="preview" class="w-full">
+    </div>
+    <%= link_to "#", data: { action: "audio-player#togglePlaying" } do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+      </svg>
+
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 hidden">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+      </svg>
+    <% end %>
+  </div>
+
+
+  <h1 class="text-4xl"> <%= @post.title %> </h1>
+  <h2 class="text-xl"> by <%= @post.user.username %> </h2>
+  <div class="my-4">
+    <%= @post.description %>
+  </div>
+
+  <div>
+    Posted <%= time_ago_in_words(@post.created_at) %> ago
+  </div>
+
+  <div class="mx-auto">
+    <% if current_user == @post.user %>
+      <%= link_to "Edit this post", edit_post_path(@post), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <div class="inline-block ml-2">
+        <%= button_to "Destroy this post", post_path(@post), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      </div>
+    <% end %>
+    <%= link_to "Back to posts", posts_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
+</div>

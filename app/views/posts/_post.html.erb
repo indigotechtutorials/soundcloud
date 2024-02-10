@@ -1,0 +1,21 @@
+<div id="<%= dom_id post %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= post.title %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= post.description %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Cover art:</strong>
+    <%= link_to post.cover_art.filename, post.cover_art if post.cover_art.attached? %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Audio:</strong>
+    <%= link_to post.audio.filename, post.audio if post.audio.attached? %>
+  </p>
+</div>
